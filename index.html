@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Translator</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>AI Lecture Translator</title>
-
-<link rel="stylesheet" href="style.css">
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -19,82 +15,59 @@
 
 <div class="app">
 
-<div class="header">
-<h1>AI Lecture Translator</h1>
-<p>Интеллектуальный перевод лекций в реальном времени</p>
-</div>
+  <div class="header">
+    <h1>AI Translator</h1>
+    <p>Перевод в реальном времени</p>
+  </div>
 
-<div class="translator">
+  <div class="translator">
 
-<div class="panel">
+    <!-- INPUT -->
+    <div class="panel">
+      <div class="top">
+        <h2>Оригинал</h2>
+        <select id="fromLang">
+          <option value="ru">Русский</option>
+          <option value="en">English</option>
+        </select>
+      </div>
 
-<div class="top">
-<h2>Оригинал</h2>
+      <textarea id="textInput" placeholder="Введите текст..."></textarea>
 
-<select id="fromLang">
-<option value="ru">Русский</option>
-<option value="en">English</option>
-</select>
+      <div class="buttons">
+        <button id="mic">🎤</button>
+        <button id="clear">Очистить</button>
+      </div>
+    </div>
 
-</div>
+    <!-- SWAP -->
+    <div class="swap-box">
+      <button id="swap">⇄</button>
+    </div>
 
-<textarea
-id="textInput"
-placeholder="Введите текст..."
-></textarea>
+    <!-- OUTPUT -->
+    <div class="panel">
+      <div class="top">
+        <h2>Перевод</h2>
+        <select id="toLang">
+          <option value="en">English</option>
+          <option value="ru">Русский</option>
+        </select>
+      </div>
 
-<div class="buttons">
+      <div id="translated" class="result">
+        Перевод появится здесь...
+      </div>
 
-<button id="mic">🎤</button>
+      <div class="buttons">
+        <button id="speak">🔊 Озвучить</button>
+        <button id="copy">📋 Копировать</button>
+      </div>
+    </div>
 
-<button id="clear">
-Очистить
-</button>
-
-</div>
-
-</div>
-
-<div class="swap-box">
-<button id="swap">⇄</button>
-</div>
-
-<div class="panel">
-
-<div class="top">
-
-<h2>Перевод</h2>
-
-<select id="toLang">
-<option value="en">English</option>
-<option value="ru">Русский</option>
-</select>
-
-</div>
-
-<div id="translated" class="result">
-Перевод появится здесь...
-</div>
-
-<div class="buttons">
-
-<button id="speak">
-🔊 Озвучить
-</button>
-
-<button id="copy">
-📋 Копировать
-</button>
-
-</div>
-
-</div>
-
-</div>
-
+  </div>
 </div>
 
 <script src="script.js"></script>
-
 </body>
 </html>
