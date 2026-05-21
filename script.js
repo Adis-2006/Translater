@@ -7,8 +7,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let timeout;
 
-  // AUTO TRANSLATE
+  // Автоперевод
   textInput.addEventListener("input", () => {
+
     clearTimeout(timeout);
 
     const text = textInput.value.trim();
@@ -21,80 +22,114 @@ document.addEventListener("DOMContentLoaded", () => {
     timeout = setTimeout(() => {
       translate(text);
     }, 500);
+
   });
 
-  // TRANSLATE FUNCTION
+  // Функция перевода
   async function translate(text) {
+
     translated.innerText = "Перевод...";
 
     try {
-      const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${fromLang.value}|${toLang.value}`;
+
+      const url =
+        `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${fromLang.value}|${toLang.value}`;
 
       const res = await fetch(url);
+
       const data = await res.json();
 
-      const result = data?.responseData?.translatedText;
-
-      translated.innerText = result || text;
+      translated.innerText =
+        data?.responseData?.translatedText || text;
 
     } catch (e) {
+
       translated.innerText = text;
+
     }
+
   }
 
-  // MIC
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  // Микрофон
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
 
   if (SpeechRecognition) {
+
     const recognition = new SpeechRecognition();
 
     document.getElementById("mic").onclick = () => {
-      recognition.lang = fromLang.value === "ru" ? "ru-RU" : "en-US";
+
+      recognition.lang =
+        fromLang.value === "ru" ? "ru-RU" : "en-US";
+
       recognition.start();
+
     };
 
     recognition.onresult = (event) => {
+
       const text = event.results[0][0].transcript;
+
       textInput.value = text;
+
       translate(text);
+
     };
+
   }
 
-  // SPEAK
+  // Озвучка
   document.getElementById("speak").onclick = () => {
+
     const text = translated.innerText;
 
     if (!text || text.includes("Перевод")) return;
 
     const speech = new SpeechSynthesisUtterance(text);
-    speech.lang = toLang.value === "ru" ? "ru-RU" : "en-US";
-    speech.rate = 1;
+
+    speech.lang =
+      toLang.value === "ru" ? "ru-RU" : "en-US";
 
     speechSynthesis.speak(speech);
+
   };
 
-  // COPY
+  // Копировать
   document.getElementById("copy").onclick = () => {
-    navigator.clipboard.writeText(translated.innerText);
+
+    navigator.clipboard.writeText(
+      translated.innerText
+    );
+
   };
 
-  // CLEAR
+  // Очистка
   document.getElementById("clear").onclick = () => {
+
     textInput.value = "";
-    translated.innerText = "Перевод появится здесь...";
+
+    translated.innerText =
+      "Перевод появится здесь...";
+
   };
 
-  // SWAP LANG
+  // Смена языков
   document.getElementById("swap").onclick = () => {
-    [fromLang.value, toLang.value] = [toLang.value, fromLang.value];
+
+    [fromLang.value, toLang.value] =
+      [toLang.value, fromLang.value];
 
     const temp = textInput.value;
+
     textInput.value = translated.innerText;
+
     translated.innerText = temp;
 
     if (textInput.value.trim()) {
       translate(textInput.value);
     }
+
   };
 
 });
